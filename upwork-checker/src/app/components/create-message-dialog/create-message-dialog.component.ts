@@ -2,13 +2,14 @@ import {Component, inject, OnInit} from '@angular/core';
 import {MAT_DIALOG_DATA, MatDialogModule, MatDialogRef} from '@angular/material/dialog';
 import {CommonModule} from '@angular/common';
 import {MatButtonModule} from '@angular/material/button';
-import {FormBuilder, FormGroup, ReactiveFormsModule, UntypedFormGroup, Validators} from '@angular/forms';
-import {IBaseMessage} from '../../interfaces/IMessage';
+import {FormBuilder, ReactiveFormsModule, UntypedFormGroup, Validators} from '@angular/forms';
 import {MatFormFieldModule} from '@angular/material/form-field';
+import {MatInputModule} from '@angular/material/input';
+import {IBaseMessage} from '../../interfaces/IMessage';
 
 @Component({
   selector: 'app-create-message-dialog',
-  imports: [CommonModule, MatButtonModule, ReactiveFormsModule, MatDialogModule, MatFormFieldModule],
+  imports: [CommonModule, MatButtonModule, ReactiveFormsModule, MatDialogModule, MatFormFieldModule, MatInputModule],
   templateUrl: './create-message-dialog.component.html',
   styleUrl: './create-message-dialog.component.scss'
 })
@@ -21,14 +22,13 @@ export class CreateMessageDialogComponent {
 
   constructor() {
     this.form = this.formBuilder.group({
-      mail: [null, [Validators.required, Validators.email]],
+      email: [null, [Validators.required, Validators.email]],
       message: [null, [Validators.required, Validators.maxLength(100)]]
     });
-
-    this.form.valueChanges.subscribe(() => console.log(this.form))
   }
 
   onSubmit(): void {
-    console.log(12312)
+    const res: IBaseMessage = this.form.getRawValue();
+    this.dialogRef.close(res);
   }
 }

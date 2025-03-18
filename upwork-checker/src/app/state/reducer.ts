@@ -18,7 +18,7 @@ export const messagesReducer = createReducer(
   initialState,
   on(MessagesActions.loadMessages, (state) => ({ ...state, loading: true })),
   on(MessagesActions.loadMessagesSuccess, (state, { messages }) => ({ ...state, loading: false, messages })),
-  on(MessagesActions.loadMessagesFailure, (state, { error }) => ({ ...state, loading: false, error })),
+  // on(MessagesActions.loadMessagesFailure, (state, { error }) => ({ ...state, loading: false, error })),
 
   on(MessagesActions.addMessage, (state) => ({ ...state, loading: true })),
   on(MessagesActions.addMessageSuccess, (state, { message }) => ({
@@ -26,5 +26,5 @@ export const messagesReducer = createReducer(
     loading: false,
     messages: [...state.messages, message]
   })),
-  on(MessagesActions.addMessageFailure, (state, { error }) => ({ ...state, loading: false, error }))
+  // on(MessagesActions.addMessageFailure, (state, { error }) => ({ ...state, loading: false, error }))
 );
