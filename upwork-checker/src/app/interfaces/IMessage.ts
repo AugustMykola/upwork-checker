@@ -1,6 +1,10 @@
-export interface IMessage {
+export interface IBaseMessage {
+  mail: string;
+  message: string;
+}
+
+
+interface IMessage extends IBaseMessage{
   id?: string;
-  mail?: string;
-  message?: string;
   createdOn?: string;
 }
