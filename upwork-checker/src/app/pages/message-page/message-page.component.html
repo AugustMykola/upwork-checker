@@ -1,5 +1,5 @@
 <h2>Messages</h2>
-<div *ngIf="loading$ | async">Loading...</div>
+<app-spinner *ngIf="loading$ | async"></app-spinner>
 <div *ngIf="error$ | async">Error occurred: {{ error$ | async }}</div>
 <button mat-raised-button (click)="openDialog()">Add Message</button>
 <mat-table [dataSource]="messages$ | async">

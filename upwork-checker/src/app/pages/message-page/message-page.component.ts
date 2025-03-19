@@ -10,6 +10,7 @@ import {CommonModule} from '@angular/common';
 import {CreateMessageDialogComponent} from '../../components/create-message-dialog/create-message-dialog.component';
 import {MessageService} from '../../providers/message.service';
 import {IMessage} from '../../interfaces/IMessage';
+import {SpinnerComponent} from '../../components/spinner/spinner.component';
 
 @Component({
   selector: 'app-message-page',
@@ -18,7 +19,8 @@ import {IMessage} from '../../interfaces/IMessage';
     MatTableModule,
     MatButtonModule,
     MatDialogModule,
-    CreateMessageDialogComponent
+    CreateMessageDialogComponent,
+    SpinnerComponent
   ],
   templateUrl: './message-page.component.html',
   styleUrl: './message-page.component.scss',

@@ -3,6 +3,7 @@ import {RouterModule, RouterOutlet} from '@angular/router';
 import {ToolbarComponent} from './components/toolbar/toolbar.component';
 import {HomePageComponent} from './pages/home-page/home-page.component';
 import {MessagePageComponent} from './pages/message-page/message-page.component';
+import {SpinnerComponent} from './components/spinner/spinner.component';
 
 @Component({
   selector: 'app-root',
