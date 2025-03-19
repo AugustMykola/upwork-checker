@@ -3,7 +3,6 @@ export interface IBaseMessage {
   message: string;
 }
 
-
 export interface IMessage extends IBaseMessage{
   id?: string;
   createdOn?: string;

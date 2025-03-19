@@ -1,6 +1,6 @@
 import {Component, inject} from '@angular/core';
 import {selectAllMessages, selectError, selectLoading} from '../../state/selectors';
-import {first, Observable} from 'rxjs';
+import {first, Observable, Subscription} from 'rxjs';
 import {loadMessages, addMessage} from '../../state/actions';
 import {Store} from '@ngrx/store';
 import {MatTableModule} from '@angular/material/table';
@@ -27,10 +27,10 @@ import {SpinnerComponent} from '../../components/spinner/spinner.component';
   providers: [MessageService]
 })
 export class MessagePageComponent {
+
   store = inject(Store);
   dialog: MatDialog = inject(MatDialog);
   messageService: MessageService = inject(MessageService);
-
 
   messages$: Observable<any> = this.store.select(selectAllMessages);
   loading$: Observable<boolean> = this.store.select(selectLoading);
@@ -42,7 +42,7 @@ export class MessagePageComponent {
     this.store.dispatch(loadMessages());
   }
 
-  openDialog() {
+  openDialog(): Subscription {
     return this.dialog.open(CreateMessageDialogComponent).afterClosed().pipe(first()).subscribe(res => {
       if (res) {
         const message: IMessage = this.messageService.prepareDataToSubmit(res);
