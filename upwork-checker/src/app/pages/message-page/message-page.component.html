@@ -1,24 +1,35 @@
-<h2>Messages</h2>
-<app-spinner *ngIf="loading$ | async"></app-spinner>
-<div *ngIf="error$ | async">Error occurred: {{ error$ | async }}</div>
-<button mat-raised-button (click)="openDialog()">Add Message</button>
-<mat-table [dataSource]="messages$ | async">
-  <ng-container matColumnDef="id">
-    <mat-header-cell *matHeaderCellDef> ID </mat-header-cell>
-    <mat-cell *matCellDef="let message"> {{ message.id }} </mat-cell>
-  </ng-container>
-  <ng-container matColumnDef="email">
-    <mat-header-cell *matHeaderCellDef> Email </mat-header-cell>
-    <mat-cell *matCellDef="let message"> {{ message.email }} </mat-cell>
-  </ng-container>
-  <ng-container matColumnDef="message">
-    <mat-header-cell *matHeaderCellDef> Message </mat-header-cell>
-    <mat-cell *matCellDef="let message"> {{ message.message | slice:0:100 }} </mat-cell>
-  </ng-container>
-  <ng-container matColumnDef="date">
-    <mat-header-cell *matHeaderCellDef> Date </mat-header-cell>
-    <mat-cell *matCellDef="let message"> {{ message.createdOn | date: 'short' }} </mat-cell>
-  </ng-container>
-  <mat-header-row *matHeaderRowDef="displayedColumns"></mat-header-row>
-  <mat-row *matRowDef="let row; columns: displayedColumns;"></mat-row>
-</mat-table>
+<app-spinner *ngIf="loading$ | async; else dataTemplate"></app-spinner>
+
+<ng-template #dataTemplate>
+  <div class="messages-container">
+    <div class="messages-header">
+      <h2>Messages</h2>
+      <div>
+        <button mat-raised-button (click)="openDialog()">Add Message</button>
+      </div>
+    </div>
+    <div class="messages-content">
+      <mat-table [dataSource]="messages$ | async">
+        <ng-container matColumnDef="id">
+          <mat-header-cell *matHeaderCellDef> ID</mat-header-cell>
+          <mat-cell *matCellDef="let message"> {{ message.id }} </mat-cell>
+        </ng-container>
+        <ng-container matColumnDef="email">
+          <mat-header-cell *matHeaderCellDef> Email</mat-header-cell>
+          <mat-cell *matCellDef="let message"> {{ message.email }} </mat-cell>
+        </ng-container>
+        <ng-container matColumnDef="message">
+          <mat-header-cell *matHeaderCellDef> Message</mat-header-cell>
+          <mat-cell *matCellDef="let message"> {{ message.message | slice:0:100 }} </mat-cell>
+        </ng-container>
+        <ng-container matColumnDef="date">
+          <mat-header-cell *matHeaderCellDef> Date</mat-header-cell>
+          <mat-cell *matCellDef="let message"> {{ message.createdOn | date: 'short' }} </mat-cell>
+        </ng-container>
+        <mat-header-row *matHeaderRowDef="displayedColumns"></mat-header-row>
+        <mat-row *matRowDef="let row; columns: displayedColumns;"></mat-row>
+      </mat-table>
+    </div>
+  </div>
+
+</ng-template>

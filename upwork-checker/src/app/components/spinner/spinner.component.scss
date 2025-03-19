@@ -1,3 +1,5 @@
+@import "../../../scss/variables.scss";
+
 .spinner {
   display: flex;
   gap: 5px;
@@ -5,7 +7,7 @@
   align-items: center;
   width: 100%;
   height: 100%;
-  position: absolute;
+  position: fixed;
   overflow: hidden;
   pointer-events: none;
   background-color: rgba(47, 45, 45, 0.13);
@@ -28,12 +30,12 @@
   0%, 100% {
     opacity: 0.3;
     transform: scaleY(0.5);
-    background: violet;
+    background: $color-primary;
   }
   50% {
     opacity: 1;
     transform: scaleY(1);
-    background: #33b1ff;
+    background: $color-primary-light;
   }
 }
 

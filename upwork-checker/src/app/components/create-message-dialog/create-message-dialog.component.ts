@@ -6,10 +6,19 @@ import {FormBuilder, ReactiveFormsModule, UntypedFormGroup, Validators} from '@a
 import {MatFormFieldModule} from '@angular/material/form-field';
 import {MatInputModule} from '@angular/material/input';
 import {IBaseMessage} from '../../interfaces/IMessage';
+import {MatIconModule} from '@angular/material/icon';
 
 @Component({
   selector: 'app-create-message-dialog',
-  imports: [CommonModule, MatButtonModule, ReactiveFormsModule, MatDialogModule, MatFormFieldModule, MatInputModule],
+  imports: [
+    CommonModule,
+    MatButtonModule,
+    ReactiveFormsModule,
+    MatDialogModule,
+    MatFormFieldModule,
+    MatInputModule,
+    MatIconModule
+  ],
   templateUrl: './create-message-dialog.component.html',
   styleUrl: './create-message-dialog.component.scss'
 })
