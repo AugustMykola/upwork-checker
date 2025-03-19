@@ -16,7 +16,10 @@ export class MessagesEffects {
     this.actions$.pipe(
       ofType(MessagesActions.loadMessages),
       switchMap(() =>
-        of(MessagesActions.loadMessagesSuccess({ messages: [] }))
+        this.messageApiService.getMessages().pipe(
+          map((messages) => MessagesActions.loadMessagesSuccess({ messages })),
+          catchError((error) => of(MessagesActions.loadMessagesFailure({ error: error.message })))
+        )
       )
     )
   );

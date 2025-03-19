@@ -15,6 +15,11 @@ export const loadMessagesSuccess = createAction(
   '[Messages] Load Messages Success',
   props<{ messages: any[] }>()
 );
+export const loadMessagesFailure = createAction(
+  '[Messages] Load Messages Failure',
+  props<{ error: any[] }>()
+);
+
 
 export const addMessage = createAction(
   '[Messages] Add Message',
