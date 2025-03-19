@@ -1,6 +1,6 @@
-import {Component, inject} from '@angular/core';
+import {Component, inject, OnInit} from '@angular/core';
 import {selectAllMessages, selectLoading} from '../../state/selectors';
-import {first, Observable, Subscription} from 'rxjs';
+import {distinctUntilChanged, first, Observable, Subscription, tap} from 'rxjs';
 import {loadMessages, addMessage} from '../../state/actions';
 import {Store} from '@ngrx/store';
 import {MatTableModule} from '@angular/material/table';
@@ -26,19 +26,28 @@ import {SpinnerComponent} from '../../components/spinner/spinner.component';
   styleUrl: './message-page.component.scss',
   providers: [MessageService]
 })
-export class MessagePageComponent {
+export class MessagePageComponent implements OnInit {
 
   store = inject(Store);
   dialog: MatDialog = inject(MatDialog);
   messageService: MessageService = inject(MessageService);
 
-  messages$: Observable<any> = this.store.select(selectAllMessages);
+  messages$: Observable<any> = this.store.select(selectAllMessages).pipe(
+    distinctUntilChanged((prev, curr) => JSON.stringify(prev) === JSON.stringify(curr))
+  );
   loading$: Observable<boolean> = this.store.select(selectLoading);
   displayedColumns: string[] = ['id', 'email', 'message', 'date'];
 
 
   constructor() {
-    this.store.dispatch(loadMessages());
+  }
+
+  ngOnInit(): void {
+    this.store.select(selectAllMessages).pipe(first()).subscribe(messages => {
+      if (!messages.length) {
+        this.store.dispatch(loadMessages());
+      }
+    });
   }
 
   openDialog(): Subscription {

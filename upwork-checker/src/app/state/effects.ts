@@ -1,6 +1,6 @@
 import {inject, Injectable} from '@angular/core';
 import {Actions, createEffect, ofType} from '@ngrx/effects';
-import {catchError, delay, map, of, switchMap, tap} from 'rxjs';
+import {catchError, delay, first, map, of, switchMap, tap} from 'rxjs';
 import * as MessagesActions from './actions';
 import {MessageApiService} from '../providers/message-api.service';
 import {MatSnackBar} from '@angular/material/snack-bar';
@@ -32,6 +32,7 @@ export class MessagesEffects {
     () =>
       this.actions$.pipe(
         ofType(MessagesActions.loadMessagesSuccess),
+        first(),
         tap(() => {
           this.snackBar.open('Messages successfully loaded!', 'Close', { duration: 3000 });
         })
@@ -55,7 +56,6 @@ export class MessagesEffects {
       ofType(MessagesActions.addMessage),
       switchMap(({ message }) =>
         this.messageApiService.addMessage(message).pipe(
-          delay(500),
           map(() => MessagesActions.addMessageSuccess({ message })),
           catchError((error) => of(MessagesActions.addMessageFailure({ error: error.message || error })))
         )
