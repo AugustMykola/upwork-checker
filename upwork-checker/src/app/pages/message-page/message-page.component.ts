@@ -1,6 +1,6 @@
 import {Component, inject, OnInit} from '@angular/core';
 import {selectAllMessages, selectLoading} from '../../state/selectors';
-import {distinctUntilChanged, first, Observable, Subscription, tap} from 'rxjs';
+import {distinctUntilChanged, filter, first, map, Observable, Subscription, tap} from 'rxjs';
 import {loadMessages, addMessage} from '../../state/actions';
 import {Store} from '@ngrx/store';
 import {MatTableModule} from '@angular/material/table';
@@ -33,7 +33,15 @@ export class MessagePageComponent implements OnInit {
   messageService: MessageService = inject(MessageService);
 
   messages$: Observable<any> = this.store.select(selectAllMessages).pipe(
-    distinctUntilChanged((prev, curr) => JSON.stringify(prev) === JSON.stringify(curr))
+    filter(res => Boolean(res)),
+    distinctUntilChanged((prev, curr) => prev.length === curr.length),
+    map((messages) =>
+      [...messages].sort((a, b) => {
+        const dateA = a?.createdOn ? new Date(a.createdOn).getTime() : 0;
+        const dateB = b?.createdOn ? new Date(b.createdOn).getTime() : 0;
+        return dateA - dateB;
+      })
+    )
   );
   loading$: Observable<boolean> = this.store.select(selectLoading);
   displayedColumns: string[] = ['id', 'email', 'message', 'date'];
