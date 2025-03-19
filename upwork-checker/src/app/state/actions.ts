@@ -28,7 +28,7 @@ export const addMessage = createAction(
 
 export const addMessageSuccess = createAction(
   '[Messages] Add Message Success',
-  props<{ message: any }>()
+  props<{ message: IMessage }>()
 );
 
 export const addMessageFailure = createAction(

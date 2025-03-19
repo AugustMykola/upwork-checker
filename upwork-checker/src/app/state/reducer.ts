@@ -1,11 +1,12 @@
 
 import { createReducer, on } from '@ngrx/store';
 import * as MessagesActions from './actions';
+import {IMessage} from '../interfaces/IMessage';
 
 export interface State {
-  messages: any[];
+  messages: IMessage[];
   loading: boolean;
-  error: any;
+  error: Error | string | null;
 }
 
 export const initialState: State = {
