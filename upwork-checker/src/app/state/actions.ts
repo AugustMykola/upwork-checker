@@ -13,11 +13,11 @@ import {IMessage} from '../interfaces/IMessage';
 export const loadMessages = createAction('[Messages] Load Messages');
 export const loadMessagesSuccess = createAction(
   '[Messages] Load Messages Success',
-  props<{ messages: any[] }>()
+  props<{ messages: IMessage[] }>()
 );
 export const loadMessagesFailure = createAction(
   '[Messages] Load Messages Failure',
-  props<{ error: any[] }>()
+  props<{ error: Error | string }>()
 );
 
 
@@ -33,5 +33,5 @@ export const addMessageSuccess = createAction(
 
 export const addMessageFailure = createAction(
   '[Messages] Add Message Failure',
-  props<{ error: any }>()
+  props<{ error: Error | string }>()
 );

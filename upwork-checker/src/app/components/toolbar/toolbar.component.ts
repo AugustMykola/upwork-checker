@@ -1,4 +1,4 @@
-import { Component } from '@angular/core';
+import {Component, inject} from '@angular/core';
 import {MatButtonModule} from '@angular/material/button';
 import {MatToolbarModule} from '@angular/material/toolbar';
 import {Router} from '@angular/router';
@@ -12,7 +12,7 @@ import {MatIconModule} from '@angular/material/icon';
 })
 
 export class ToolbarComponent {
-  constructor(private router: Router) {}
+   private router: Router = inject(Router);
 
   navigateTo(path: string) {
     this.router.navigate([path]);

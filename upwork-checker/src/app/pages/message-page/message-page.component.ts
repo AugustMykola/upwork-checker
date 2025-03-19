@@ -1,5 +1,5 @@
 import {Component, inject} from '@angular/core';
-import {selectAllMessages, selectError, selectLoading} from '../../state/selectors';
+import {selectAllMessages, selectLoading} from '../../state/selectors';
 import {first, Observable, Subscription} from 'rxjs';
 import {loadMessages, addMessage} from '../../state/actions';
 import {Store} from '@ngrx/store';
@@ -34,7 +34,6 @@ export class MessagePageComponent {
 
   messages$: Observable<any> = this.store.select(selectAllMessages);
   loading$: Observable<boolean> = this.store.select(selectLoading);
-  error$: Observable<any> = this.store.select(selectError);
   displayedColumns: string[] = ['id', 'email', 'message', 'date'];
 
 

@@ -22,7 +22,7 @@ export class MessagesEffects {
         this.messageApiService.getMessages().pipe(
           delay(500),
           map((messages) => MessagesActions.loadMessagesSuccess({ messages })),
-          catchError((error) => of(MessagesActions.loadMessagesFailure({ error: error.message })))
+          catchError((error) => of(MessagesActions.loadMessagesFailure({ error: error.message || error })))
         )
       )
     )
@@ -57,7 +57,7 @@ export class MessagesEffects {
         this.messageApiService.addMessage(message).pipe(
           delay(500),
           map(() => MessagesActions.addMessageSuccess({ message })),
-          catchError((error) => of(MessagesActions.addMessageFailure({ error })))
+          catchError((error) => of(MessagesActions.addMessageFailure({ error: error.message || error })))
         )
       )
     )
